@@ -5,19 +5,16 @@ from schemas.player  import playerEntity, listPlayerEntity
 from bson            import ObjectId
 
 router = APIRouter(
-  prefix="/player",
-  tags=["Player"]
+  prefix="/players",
+  tags=["Players"]
 )
 
-@router.get("/")
-async def start():
-  return {"message": "You are in Player Route"}
 
-@router.get("/players")
+@router.get("/")
 async def get_all_players():
   return listPlayerEntity(conn.farm.players.find({}))
 
-@router.get("/players/{player_id}")
+@router.get("/{player_id}")
 async def get_player(player_id):
   return playerEntity(
     conn.farm.players.find_one(
@@ -27,13 +24,13 @@ async def get_player(player_id):
     )
   )
 
-@router.post("/players")
+@router.post("")
 async def post_players(player: Player):
   conn.farm.players.insert_one(dict(player))
 
   return listPlayerEntity(conn.farm.players.find({}))
 
-@router.put("/players/{player_id}")
+@router.put("/{player_id}")
 async def put_players(player_id, player: Player):
   conn.farm.players.find_one_and_update(
     {
@@ -46,7 +43,7 @@ async def put_players(player_id, player: Player):
 
   return playerEntity(conn.farm.players.find_one({"_id": ObjectId(player_id)}))
 
-@router.delete("/players/{player_id}")
+@router.delete("/{player_id}")
 async def delete_players(player_id):
   return playerEntity(
     conn.farm.players.find_one_and_delete(
