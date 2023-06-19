@@ -1,13 +1,13 @@
 # dependencies
-/node_modules
-/.pnp
+/frontend/node_modules
+/frontend/.pnp
 .pnp.js
 
 # testing
-/coverage
+/frontend/coverage
 
 # production
-/build
+/frontend/build
 
 # misc
 .DS_Store
@@ -21,3 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+
+/backend/venv-farm
